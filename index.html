@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Template Generator</title>
+  </head>
+  <body>
+    <!-- Application Header / Toolbar -->
+    <header id="app-header">
+      <h1>Template Generator</h1>
+      <!-- could add global buttons here -->
+    </header>
+
+    <!-- Main content area -->
+    <div id="app-container">
+      <!-- Left: Tabs for Work Items -->
+      <aside id="workitem-nav">
+        <ul class="tabs">
+          <li class="tab active" data-workitem="api-server">API Server</li>
+          <li class="tab" data-workitem="uml-class-diagram">
+            UML - Class Diagram
+          </li>
+          <!-- more tabs… -->
+        </ul>
+      </aside>
+
+      <!-- Center: Editor panes -->
+      <main id="editor-area">
+        <details open>
+          <summary>Template</summary>
+          <section class="editor-pane" id="template-editor">
+            <h2>Template</h2>
+            <textarea id="template-content" rows="20"></textarea>
+          </section>
+        </details>
+
+        <details open>
+          <summary>Script</summary>
+          <section class="editor-pane" id="script-editor">
+            <h2>Script</h2>
+            <textarea id="script-content" rows="20"></textarea>
+          </section>
+        </details>
+
+        <details open>
+          <summary>Output</summary>
+          <section class="editor-pane" id="output-view">
+            <h2>Output</h2>
+            <pre id="rendered-output"></pre>
+          </section>
+        </details>
+      </main>
+
+      <!-- Right: Properties / Controls pane -->
+      <aside id="properties-pane">
+        <h2>Properties</h2>
+        <div id="user-inputs">
+          <!-- dynamic form controls go here -->
+        </div>
+        <div id="expression-preview">
+          <!-- live preview of expressions -->
+        </div>
+      </aside>
+    </div>
+
+    <!-- (Optionally) Footer -->
+    <footer id="app-footer">
+      <small>© 2025 Your Company</small>
+    </footer>
+  </body>
+</html>
