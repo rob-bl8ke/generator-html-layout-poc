@@ -3,36 +3,40 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles.css" />
     <title>Template Generator</title>
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <!-- Application Header / Toolbar -->
     <header id="app-header">
       <h1>Template Generator</h1>
-      <!-- could add global buttons here -->
     </header>
 
-    <!-- Main content area -->
     <div id="app-container">
-      <!-- Left: Tabs for Work Items -->
+      <!-- Left: Work Item Tabs -->
       <aside id="workitem-nav">
         <ul class="tabs">
           <li class="tab active" data-workitem="api-server">API Server</li>
           <li class="tab" data-workitem="uml-class-diagram">
             UML - Class Diagram
           </li>
-          <!-- more tabs… -->
         </ul>
       </aside>
 
-      <!-- Center: Editor panes -->
+      <!-- Center: Collapsible Editors -->
       <main id="editor-area">
         <details open>
           <summary>Template</summary>
           <section class="editor-pane" id="template-editor">
             <h2>Template</h2>
-            <textarea id="template-content" rows="20"></textarea>
+            <textarea id="template-content" rows="20">
+namespace Xchangedocs.Domain.DataTransferObjects
+{
+    public class @{entityClassName}Dto
+    {
+        // ...
+    }
+}</textarea
+            >
           </section>
         </details>
 
@@ -40,7 +44,23 @@
           <summary>Script</summary>
           <section class="editor-pane" id="script-editor">
             <h2>Script</h2>
-            <textarea id="script-content" rows="20"></textarea>
+            <textarea id="script-content" rows="20">
+@entityTitle = text [Title="Entity Title", Description="Put spaces between words..."];
+
+@pluralPostfix = options [Title="Plural Postfix", Default="s"] {
+  return
+    option "s" [Title="s"],
+    option "es" [Title="es"];
+};
+
+@entityName = expression [Title="Entity Name (No Spaces)"] {
+  return removeSpaces(properCase(removePunctuation(@entityTitle)));
+};
+
+@entityClassName = expression [Title="Entity Class Name"] {
+  return @entityName;
+};</textarea
+            >
           </section>
         </details>
 
@@ -48,24 +68,62 @@
           <summary>Output</summary>
           <section class="editor-pane" id="output-view">
             <h2>Output</h2>
-            <pre id="rendered-output"></pre>
+            <pre id="rendered-output">
+namespace Xchangedocs.Domain.DataTransferObjects
+{
+    public class PersonDto
+    {
+        // ...
+    }
+}</pre
+            >
           </section>
         </details>
       </main>
 
-      <!-- Right: Properties / Controls pane -->
+      <!-- Right: Properties Pane -->
       <aside id="properties-pane">
         <h2>Properties</h2>
-        <div id="user-inputs">
-          <!-- dynamic form controls go here -->
-        </div>
-        <div id="expression-preview">
-          <!-- live preview of expressions -->
-        </div>
+
+        <!-- User Inputs -->
+        <details open>
+          <summary>User Inputs</summary>
+          <div id="user-inputs">
+            <div class="form-group">
+              <label for="entityTitle">Entity Title</label>
+              <input type="text" id="entityTitle" value="Person Type" />
+            </div>
+            <div class="form-group">
+              <label for="pluralPostfix">Plural Postfix</label>
+              <select id="pluralPostfix">
+                <option value="s" selected>s</option>
+                <option value="es">es</option>
+              </select>
+            </div>
+          </div>
+        </details>
+
+        <!-- Expression Preview -->
+        <details open>
+          <summary>Expression Preview</summary>
+          <div id="expression-preview">
+            <div class="preview-item">
+              <span class="expr-title">Entity Name:</span>
+              <span class="expr-value">PersonType</span>
+            </div>
+            <div class="preview-item">
+              <span class="expr-title">Entity Class Name:</span>
+              <span class="expr-value">PersonType</span>
+            </div>
+            <div class="preview-item">
+              <span class="expr-title">Entity Class Name DTO:</span>
+              <span class="expr-value">PersonTypeDto</span>
+            </div>
+          </div>
+        </details>
       </aside>
     </div>
 
-    <!-- (Optionally) Footer -->
     <footer id="app-footer">
       <small>© 2025 Your Company</small>
     </footer>
